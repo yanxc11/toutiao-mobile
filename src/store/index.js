@@ -1,3 +1,4 @@
+// 状态管理容器
 import Vue from 'vue'
 import Vuex from 'vuex'
 
