@@ -1,6 +1,21 @@
 /* 
     全局样式
 */
+// 我们直接在全局样式中加载字体图标
+// less 中加载资源的方式 @import '资源路径'
+@import "./icon.less";
+
 body {
-  background-color: pink;
+    background-color: #f5f7f9;
+}
+// 因为头部组件的样式很多组件都要使用。所以我们直接写在全局样式中
+
+.app-nav-bar {
+    background-color: #3296fa;
+    .van-nav-bar__title{
+        color: #fff;
+    }
+    .van-icon {
+    color: #fff;
+    }
 }

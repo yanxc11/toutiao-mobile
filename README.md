@@ -1,24 +1,28 @@
-# toutiao-m
+      <!-- 在 vant 组件中，凡是有 icon 属性的，都可以使用Vant自己的内置图标 -->
+      <van-button icon="chat" type="primary" />
+      <!-- 在 Vant 组件中使用我们自己的图标。通过 icon-prefix 告诉 Vant 我们的图标类名前缀叫toutiao。然后告诉vant我们icon具体的名chat。Vant 会帮助我们生成字体图标 -->
+      <van-button
+        icon-prefix="toutiao"
+        icon="yanzhengma"
+        type="primary"
+      ></van-button>
 
-## Project setup
-```
-yarn install
-```
+## 1.项目初始化
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+使用cli创建项目
 
-### Compiles and minifies for production
-```
-yarn build
-```
+加入 Git 版本管理
 
-### Lints and fixes files
-```
-yarn lint
-```
+初始目录结构
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+调整目录结构
+
+关于移动端组件库
+
+导入 Vant 组件库
+
+移动端 REM 适配 
+- postcss-pxtorem 是一款postcss插件，用于将px单位转为rem
+- lib-flexible 用于设置 rem 基准值
+
+关于PostCSS配置文件
