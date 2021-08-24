@@ -76,7 +76,6 @@ export default {
   methods: {
     // 上拉加载更多
     async onLoad() {
-      console.log('onLoad')
       // 异步更新数据
       // 1. 请求获取数据
       const { data } = await getAritcle({
