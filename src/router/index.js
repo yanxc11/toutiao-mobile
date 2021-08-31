@@ -46,6 +46,15 @@ const routes = [
     path: '/search',
     name: 'search',
     component: () => import('@/views/search/')
+  },
+  {
+    // 需要把文章的id 通过路由动态传递过来
+    path: '/article/:articleId',
+    name: 'article',
+    component: () => import('@/views/article/'),
+    // 在路由里面开启一个路由选项
+    // 将动态路由参数映射到组件中的 props 中，无论是访问还是维护都很方便
+    props: true
   }
 ]
 
