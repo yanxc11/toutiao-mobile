@@ -23,6 +23,11 @@ Vue.filter('relativeTime', value => {
   return dayjs(value).from(dayjs())
 })
 
+//
+Vue.filter('datetime', (value, format = 'YYYY-MM-DD HH:mm:ss') => { // 如果不传递参数，我们这里使用一个默认的时间格式。如果传递了参数，则以传递的参数时间格式为准
+  return dayjs(value).format(format)
+})
+
 // 例如日期格式化
 // console.log(dayjs().format('YYYY^MM-DD HH:mm:ss'))
 // 得到2008年1月1号到现在时间的相对时间

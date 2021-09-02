@@ -33,5 +33,9 @@ Vue.use(Vant)
 new Vue({
   router,
   store,
+  // 安装全局事件总线
+  beforeCreate() {
+    Vue.prototype.$bus = this
+  },
   render: h => h(App)
 }).$mount('#app')

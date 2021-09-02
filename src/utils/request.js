@@ -7,6 +7,15 @@ import axios from 'axios'
 // 因为在store中暴露了容器实例。在非组件模块中获取 store 必须通过这种方式
 // 这里单独加载 store 和在组件中 this.$store 是一个东西
 import store from '@/store/'
+
+/*
+    JS 能够表示的整数返回在 -2^53 到 2^53 次方之间。超过这个范围，无法精确表示这个值。
+    此时需要用到 json.bigint 将后端返回数据处理之后才可以正常使用。
+        npm i json-bigint
+        import JSONbig form 'json-bigint'
+        transformResponse是将后端返回的原始数据进行处理。
+        使用 try-catch 来捕获异常
+*/
 // 引入 json-bigint
 import JSONbig from 'json-bigint'
 
