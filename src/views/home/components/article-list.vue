@@ -1,5 +1,5 @@
 <template>
-  <div class="article-list">
+  <div class="article-list" ref="article-list">
     <!--
         List 组件通过 loading 和 finished 两个变量控制加载状态，
         当组件初始化或滚动到到底部时，会触发 load 事件并将 loading 设置成 true，此时可以发起异步操作并更新数据，数据更新完毕后，将 loading 设置成 false 即可。
@@ -16,7 +16,6 @@
         finished 属性：控制加载结束的状态
         在每次请求完毕后，需要手动将 loading 设置为 false，表示本次加载结束
         所有数据加载结束，finished 为 true，此时不会触发 load 事件
-
      -->
 
     <!-- 使用 van-pull-refresh 包住 list 组件实现下拉刷新效果 -->
@@ -51,6 +50,9 @@
 <script>
 import { getAritcle } from '@/api/article'
 import ArticleItem from '@/components/article-item'
+// 引入 lodash 中的 debounce 函数
+import { debounce } from 'lodash'
+
 export default {
   name: 'ArticleList',
   components: {
@@ -63,7 +65,8 @@ export default {
       finished: false, // 控制加载结束的状态。加载结束，不再触发加载更多
       timestamp: null, // 获取下一页数据的时间戳
       isRefreshLoading: false, // 下拉刷新的 loading 状态
-      refreshSuccessText: '' // 下拉刷新成功的提示文本
+      refreshSuccessText: '', // 下拉刷新成功的提示文本
+      scrollTop: 0 // 记录列表滚动到顶部的距离
     }
   },
   props: {
@@ -72,6 +75,19 @@ export default {
       type: Object,
       require: true
     }
+  },
+  // 被 keep-alive 包裹的组件就不在有生命周期钩子了。
+  // 可以使用 activated 这个钩子
+  activated() {
+    // 把之前记录的到顶部的距离重新设置回来
+    this.$refs['article-list'].scrollTop = this.scrollTop
+  },
+  mounted() {
+    const articleList = this.$refs['article-list']
+    // 使用 debounce 函数来进行防抖处理
+    articleList.onscroll = debounce(() => {
+      this.scrollTop = articleList.scrollTop
+    }, 50)
   },
   methods: {
     // 上拉加载更多

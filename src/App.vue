@@ -1,14 +1,32 @@
 <!-- 跟组件 -->
 <template>
   <div id="app">
-    <!-- 路由的出口。根据路由规则匹配到的路由组件就渲染到这里 -->
-    <router-view />
+    <!--
+      缓存后，组件的生命周期钩子就不在触发了
+      我们给跟组件/一级路由组件 加的 keep-alive ，只对一级路由组件有缓存状态
+     -->
+    <!-- 使用 include 来进行条件缓存 -->
+    <!-- 缓存 LayoutIndex (一级路由组件的名字) 只能写被缓存的一级路由组件-->
+    <keep-alive :include="cachePages">
+      <!-- 路由的出口。根据路由规则匹配到的路由组件就渲染到这里 -->
+      <!--
+        一级路由的出口，路由表中所有的顶层路由都是一级路由
+        因为 router-view 是一级路由出口
+        keep-alive 仅对该路由出口渲染的组件有效
+       -->
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'App'
+  name: 'App',
+  computed: {
+    ...mapState(['cachePages'])
+  }
 }
 </script>
   <!--

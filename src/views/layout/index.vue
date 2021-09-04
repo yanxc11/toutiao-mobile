@@ -1,8 +1,11 @@
 <template>
   <div class="layout-container">
-    <!-- 子路由出口 start -->
-    <router-view></router-view>
-    <!-- 子路由出口 end -->
+    <!-- 给二级路由添加缓存状态 -->
+    <keep-alive>
+      <!-- 子路由出口 start -->
+      <router-view></router-view>
+      <!-- 子路由出口 end -->
+    </keep-alive>
     <!-- 底部导航栏 start -->
     <!-- 在 Vant 组件上加上 route属性开启路由模式。  -->
     <van-tabbar v-model="active" route>
@@ -26,6 +29,9 @@ export default {
   },
   methods: {
 
+  },
+  mounted() {
+    this.$store.commit('addCachePage', 'LayoutIndex')
   }
 }
 </script>

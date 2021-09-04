@@ -13,7 +13,12 @@ export default new Vuex.Store({
   state: {
     // 使用 Vuex 结合 本地存储 来实现对用户登录状态的存储
     // user: JSON.parse(window.localStorage.getItem('user')) // 当前登录用户的登录状态(登录等状态)
-    user: getItem(USER_KEY) // 当前登录用户的登录状态(登录等状态)
+    user: getItem(USER_KEY), // 当前登录用户的登录状态(登录等状态)
+
+    /*
+      通过控制 vuex 中的cachePages 来实现是否缓存
+    */
+    cachePages: ['LayoutIndex'] // 缓存页面
   },
   mutations: {
     setUser(state, data) {
@@ -23,6 +28,21 @@ export default new Vuex.Store({
       // 注意 localStorage 中不可以存储对象，这里我们把它转化为字符串存进去
       // window.localStorage.setItem('user', JSON.stringify(state.user))
       setItem(USER_KEY, state.user)
+    },
+
+    // 添加缓存页面
+    addCachePage(state, pageName) {
+      if (!state.cachePages.includes(pageName)) {
+        state.cachePages.push(pageName)
+      }
+    },
+
+    // 移除缓存页面
+    removeCachePage(state, pageName) {
+      const index = state.cachePages.indexOf(pageName)
+      if (index !== -1) {
+        state.cachePages.splice(index, 1)
+      }
     }
   },
   actions: {

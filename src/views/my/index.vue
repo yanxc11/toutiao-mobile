@@ -11,7 +11,7 @@
             :src="currentUser.photo"
           />
           <div class="name" slot="title">{{ currentUser.name }}</div>
-          <van-button class="update-btn" size="small" round
+          <van-button class="update-btn" size="small" round to="/user/profile"
             >编辑资料</van-button
           >
         </van-cell>
@@ -22,6 +22,7 @@
               <div class="text">头条</div>
             </div>
           </van-grid-item>
+
           <van-grid-item class="data-info-item">
             <div class="text-wrap" slot="text">
               <div class="count">{{ currentUser.follow_count }}</div>
@@ -44,7 +45,17 @@
       </van-cell-group>
 
       <div class="not-login" v-else>
-        <div @click="$router.push('/login')">
+        <!-- 从 我的页面 进行跳转到 login，query 携带 redirect 路由路径。(正常登录情况) -->
+        <div
+          @click="
+            $router.push({
+              name: 'login',
+              query: {
+                redirect: '/my',
+              },
+            })
+          "
+        >
           <img class="mobile" src="./shouji.png" alt="" />
         </div>
         <div class="text">登录 / 注册</div>
@@ -66,7 +77,7 @@
       </van-grid>
 
       <van-cell title="消息通知" is-link to="/" />
-      <van-cell class="mb-4" title="小智同学" is-link to="/" />
+      <van-cell class="mb-4" title="小智同学" is-link to="/user/chat" />
 
       <van-cell
         class="logoout-cell"
@@ -111,8 +122,8 @@ export default {
     },
     async loadCurrentUser() {
       const { data } = await getCurrentUser()
-      console.log(data)
       this.currentUser = data.data
+      console.log(this.currentUser)
     }
   },
   computed: {
@@ -123,6 +134,7 @@ export default {
     // 初始化的时候获取数据
     this.loadCurrentUser()
   }
+
 }
 </script>
 

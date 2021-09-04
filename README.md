@@ -38,3 +38,6 @@
         import JSONbig form 'json-bigint'
         transformResponse是将后端返回的原始数据进行处理。
         使用 try-catch 来捕获异常
+
+      // window.URL.createObjectURL() 参数是文件对象
+      const blob = window.URL.createObjectURL(this.$refs.file.files[0])
